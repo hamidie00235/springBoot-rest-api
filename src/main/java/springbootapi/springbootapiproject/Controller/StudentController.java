@@ -1,9 +1,7 @@
 package springbootapi.springbootapiproject.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import springbootapi.springbootapiproject.Bean.Student;
 
 import java.util.ArrayList;
@@ -71,10 +69,20 @@ public class StudentController {
     // Spring Boot Rest Api with  Request Param
     // http:// localhost:8080/student/query?id=1&firstName&lastName
     // cas 2 for multiples Request Param
-    @GetMapping("Students/query")
+    @GetMapping("students/query")
     public Student studentRequestVariable(@RequestParam int id,
                                           @RequestParam String firstName,
                                           @RequestParam  String lastName) {
         return new Student(1,firstName, lastName);
+    }
+    // Spring Boot Rest Api that handles Http Post Request
+    // @Postmapping and @RequestBody
+    @PostMapping("students/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student createStudent(@RequestBody Student student){
+        System.out.println(student.getId());
+        System.out.println(student.getFirstName());
+        System.out.println(student.getLastName());
+        return student;
     }
 }
